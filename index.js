@@ -27,7 +27,10 @@ app.use(
         optionsSuccessStatus: 200,
         methods: "GET,POST,PUT,DELETE,PATCH",
         allowedHeaders: "Content-Type, Authorization",
-        origin: ["http://localhost:2323"],
+        origin: [
+            "http://localhost:2323",
+            "https://eden-supermarket.vercel.app/",
+        ],
     })
 )
 app.use(json({ limit: "5mb" }))
