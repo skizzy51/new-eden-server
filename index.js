@@ -29,7 +29,7 @@ app.use(
         allowedHeaders: "Content-Type, Authorization",
         origin: [
             "http://localhost:2323",
-            "https://eden-supermarket.vercel.app/",
+            "https://eden-supermarket.vercel.app",
         ],
     })
 )
