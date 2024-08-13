@@ -2,26 +2,26 @@ const express = require("express")
 const { json } = require("express")
 const dotenv = require("dotenv")
 const mongoose = require("mongoose")
-const router = require("./routes")
+const router = require("../routes")
 const cors = require("cors")
 
 const app = express()
 dotenv.config()
 
-const VerifyToken = require("./middlewares/token-verification")
+const VerifyToken = require("../middlewares/token-verification")
 const {
     CreateProduct,
     DeleteProduct,
     GetAllProducts,
     GetProduct,
     UpdateProduct,
-} = require("./controllers/ProductController")
+} = require("../controllers/ProductController")
 const {
     CreateCategory,
     GetAllCategories,
     DeleteCategory,
     GetCategory,
-} = require("./controllers/CategoryContoller")
+} = require("../controllers/CategoryContoller")
 const {
     LoginUser,
     CreateUser,
@@ -31,14 +31,14 @@ const {
     ChangePassword,
     MarkFavorite,
     UnmarkFavorite,
-} = require("./controllers/UserController")
+} = require("../controllers/UserController")
 const {
     CreateTransaction,
     UpdateTransactionStatus,
     GetAllTransactions,
     GetUserTransactions,
-} = require("./controllers/TransactionController")
-const VerifyRoles = require("./middlewares/role-verification")
+} = require("../controllers/TransactionController")
+const VerifyRoles = require("../middlewares/role-verification")
 
 async function connectDb() {
     try {
