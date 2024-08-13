@@ -30,6 +30,7 @@ app.use(
         origin: [
             "http://localhost:2323",
             "https://eden-supermarket.vercel.app",
+            "https://eden-next-app.vercel.app"
         ],
     })
 )
