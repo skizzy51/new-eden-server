@@ -30,7 +30,7 @@ app.use(
         origin: [
             "http://localhost:2323",
             "https://eden-supermarket.vercel.app",
-            "https://eden-next-app.vercel.app"
+            "https://eden-next-app.vercel.app",
         ],
     })
 )
@@ -49,3 +49,4 @@ app.use(function (err, req, res, next) {
 app.listen(process.env.PORT || 2003, () =>
     console.log("Server running on 2003")
 )
+module.exports = app
