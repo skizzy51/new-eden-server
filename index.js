@@ -8,6 +8,38 @@ const cors = require("cors")
 const app = express()
 dotenv.config()
 
+const VerifyToken = require("./middlewares/token-verification")
+const {
+    CreateProduct,
+    DeleteProduct,
+    GetAllProducts,
+    GetProduct,
+    UpdateProduct,
+} = require("./controllers/ProductController")
+const {
+    CreateCategory,
+    GetAllCategories,
+    DeleteCategory,
+    GetCategory,
+} = require("./controllers/CategoryContoller")
+const {
+    LoginUser,
+    CreateUser,
+    GetUser,
+    DeleteUser,
+    ChangeUsername,
+    ChangePassword,
+    MarkFavorite,
+    UnmarkFavorite,
+} = require("./controllers/UserController")
+const {
+    CreateTransaction,
+    UpdateTransactionStatus,
+    GetAllTransactions,
+    GetUserTransactions,
+} = require("./controllers/TransactionController")
+const VerifyRoles = require("./middlewares/role-verification")
+
 async function connectDb() {
     try {
         await mongoose.connect(
@@ -35,7 +67,40 @@ app.use(
     })
 )
 app.use(json({ limit: "5mb" }))
-app.use("/shop", router)
+// app.use("/shop", router)
+app.get("/", (req, res) => {
+    res.status(200).json({
+        message: "Eden Supermarket APIs",
+        data: ["No data"],
+    })
+})
+
+app.post("/item", CreateProduct)
+app.get("/item", GetAllProducts)
+app.delete("/item-delete/:id", DeleteProduct)
+app.get("/item-get/:id", GetProduct)
+app.post("/item-update", UpdateProduct)
+app.post("/category", CreateCategory)
+app.get("/category", GetAllCategories)
+app.delete("/category-delete/:id", DeleteCategory)
+app.get("/category-get/:id", GetCategory)
+app.post("/login", LoginUser)
+app.post("/register", CreateUser)
+app.get("/user", VerifyToken, GetUser)
+app.delete("/user", DeleteUser)
+app.post("/user/username", ChangeUsername)
+app.post("/user/password", ChangePassword)
+app.post("/favorite", VerifyToken, MarkFavorite)
+app.post("/unfavorite", VerifyToken, UnmarkFavorite)
+app.post("/transaction", VerifyToken, CreateTransaction)
+app.patch(
+    "/transaction",
+    VerifyToken,
+    VerifyRoles("admin"),
+    UpdateTransactionStatus
+)
+app.get(VerifyToken, VerifyRoles("admin"), GetAllTransactions)
+app.get("/transaction/user", VerifyToken, GetUserTransactions)
 app.use("*", (req, res) => {
     res.status(400).json({
         message: "Url not found",
